@@ -58,31 +58,39 @@ Edit **run.R** and comment out the line (this runs the app in default browser):
 shiny::runApp(appDir = file.path(x[1]), launch.browser = T)
 ```
 
-And uncomment (and edit if necessary) the lines (this runs the app in the packaged Chrome browser):
+And uncomment these lines (this runs the app in the packaged Chrome browser):
 
 ```
 # chrome <- file.path(dirname(x[1]), "chrome", "chrome.exe")
 # shiny::runApp(
 #   appDir = file.path(x[1]),
-#   host = "127.0.0.1",
-#   port = 8000,
 #   launch.browser = function(shinyurl) {
-#     system(paste(chrome, "--app=http://127.0.0.1:8000/ -incognito"), wait = F)
+#     system(paste0(chrome, " --app=", shinyurl, " -incognito"), wait = F)
 #   }
 # )
 ```
 
-NOTE: Many browsers have the option of running in kiosk mode, this removes address bars, bookmark bars and other features of a web browser to only display a single webpage, providing the closest experience to a regular desktop application; here kiosk mode is enabled by using **--app** followed by the URL of the Shiny app. **-incognito** is used to prevent Chrome from recorded cookies and history, to avoid needlessly bloating file size. The limitation of this approach is that we need to provide an explicit URL in the **system** function in order to launch in kiosk mode, meaning we cannot take advantage of random port assignment as a specific host and port must be provided in the **runApp** function. In this example if another app is running on port 8000 then the app will not be displayed after launching.
+The argument to *launch.browser* will launch Chrome in kiosk mode, which removes address bars, bookmark bars and other features, providing the closest experience to a regular desktop application.
 
 ### 6. Create installer executable
 
 Installers allow for easy distribution and installation of a Shiny desktop app. Software for creating Windows installer executable is required - I recommend [Inno Setup](https://www.jrsoftware.org/isinfo.php). The details for using this software is not specified here, but it would be preferable to provide a non-admin install option allowing for less privileged users easier access to the app.
 
-### 7. Run the app
+### 7. Terminating app on window close
 
-Double click **run.bat** to open the Shiny app in either the default browser or packaged web browser.
+To ensure that the Shiny app is terminated when the browser window is closed by the user, the following lines should be added to the **server** function (make sure that *session* is added as an argument to the **server** function).
 
-To shut down the app, both the web browser windows and command prompt window must be closed.
+```
+session$onSessionEnded(function() {
+    stopApp()
+ })
+```
+
+### 8. Run the app
+
+Double click **run.bat** to run the Shiny app in either the default browser or packaged web browser.
+
+Closing the browser window will terminate the Shiny app and close the command prompt window.
 
 ## Acknowledgements
 

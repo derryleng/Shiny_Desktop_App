@@ -20,10 +20,8 @@ if (!is.na(x[1])) {
   # chrome <- file.path(dirname(x[1]), "chrome", "chrome.exe")
   # shiny::runApp(
   #   appDir = file.path(x[1]),
-  #   host = "127.0.0.1",
-  #   port = 8000,
   #   launch.browser = function(shinyurl) {
-  #     system(paste(chrome, "--app=http://127.0.0.1:8000/ -incognito"), wait = F)
+  #     system(paste0(chrome, " --app=", shinyurl, " -incognito"), wait = F)
   #   }
   # )
   
