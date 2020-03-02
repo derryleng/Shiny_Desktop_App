@@ -16,12 +16,12 @@ if (!is.na(x[1])) {
   # Open in default web browser
   shiny::runApp(appDir = file.path(x[1]), launch.browser = T)
   
-  # Open in embedded chrome browser (must use a specific port)
-  # chrome <- file.path(dirname(x[1]), "chrome", "chrome.exe")
+  # Open in embedded browser (must use a specific port)
+  # browser_path <- file.path(dirname(x[1]), "chrome", "chrome.exe")
   # shiny::runApp(
   #   appDir = file.path(x[1]),
   #   launch.browser = function(shinyurl) {
-  #     system(paste0(chrome, " --app=", shinyurl, " -incognito"), wait = F)
+  #     system(paste0("\"", browser_path, "\" --app=", shinyurl, " -incognito"), wait = F)
   #   }
   # )
   
