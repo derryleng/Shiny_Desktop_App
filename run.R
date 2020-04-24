@@ -7,7 +7,7 @@ if (!is.na(x[1])) {
     if (length(missing_packages) > 0) {
       install.packages(missing_packages, repos = "https://cloud.r-project.org", dependencies = T)
       # Include additional commands to be run after first time installation of package(s), e.g.
-      # if ("mapview" %in% missing_packages) {
+      # if (!webshot::is_phantomjs_installed()) {
       #   webshot::install_phantomjs()
       # }
     }

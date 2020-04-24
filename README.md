@@ -16,7 +16,7 @@ Copy the contents of the folder containing the relevant Shiny app into the **app
 
 Append the R packages used in the copied Shiny app to the **req.txt** file (one package per line).
 
-(*Optional*) Code for lading packages in the Shiny app can take advantage of **req.txt** by using:
+(*Optional*) Code for loading packages in the Shiny app can take advantage of **req.txt** by using:
 
 ```
 req <- scan(file.path(dirname(getwd()), "req.txt"), character(), quiet = T)
