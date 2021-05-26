@@ -74,7 +74,7 @@ Open R.exe (found in **R\bin**) and install Shiny. If not following optional ste
 install.packages("shiny")
 ```
 
-(Optional) Deployment file size can be significantly reduced by configuring additional packages to be install by the user on first run by including this at the start of the **app.R** or **global.R** file:
+(Optional) Deployment file size can be significantly reduced by configuring additional packages to be installed by the user on first run by including this at the start of the **app.R** or **global.R** file:
 
 ``` R
 (function(req_file, install = T, update = F, silent = F) {
@@ -162,7 +162,7 @@ Closing the browser window should terminate the Shiny app and close the command 
 
 ---
 
-### 8. (Optional) Packaging multiple Shiny apps
+### 9. (Optional) Packaging multiple Shiny apps
 
 Several Shiny apps may be bundled into a single deployment, each Shiny app should be contained within its own folder inside the file directory.
 
@@ -206,7 +206,7 @@ This allows the user to select the Shiny application to run via the command prom
 
 ---
 
-### 9. Create installer executable
+### 10. Create installer executable
 
 Installers allow for easy distribution and installation of a Shiny desktop app. Software for creating Windows installer executable is required - I recommend [Inno Setup](https://www.jrsoftware.org/isinfo.php). The details for using this software is not specified here, but it would be preferable to provide non-admin users easier access to the app.
 
