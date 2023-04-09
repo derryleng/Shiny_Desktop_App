@@ -10,8 +10,6 @@ The benefits of this deployment method is the minimal software requirement and I
 
 This repository is a template of the base directory of desktop deployed Shiny app.
 
----
-
 ### 2. Package portable R installation
 
 Download and install [R Portable](https://sourceforge.net/projects/rportable/), then copy the contents of **R-Portable\App\R-Portable** (this should have folders such as *bin*, *doc*, *etc* and so on) into the **R** folder. *Using a standard installation of R instead of R Portable should also work, but it is best to use a fresh installation to avoid bloat from including redundant packages.*
@@ -25,8 +23,6 @@ Inside the **R** folder, open **etc** and edit **Rprofile.site** using a text ed
 ```
 
 This will tell the R portable installation to only use the packages installed in this local directory, to avoid conflicts with other R installations.
-
----
 
 ### 3. (Optional) Package web browser
 
@@ -56,13 +52,9 @@ In the code above, the arguments to *launch.browser* will launch Chrome in kiosk
 
 If another browser is used, be sure to adjust *browser_path* and *launch.browser* arguments accordingly.
 
----
-
 ### 4. Copy in Shiny app
 
 Copy the contents of the folder containing your Shiny app into the **app** folder (example included).
-
----
 
 ### 5. Installing R packages
 
@@ -81,12 +73,12 @@ install.packages("shiny")
 
   # Read text file containing required packages
   req <- scan(req_file, character(), quiet = T)
-  
+
   # Update packages
   if (update) {
     update.packages(repos = "https://cloud.r-project.org", ask = F)
   }
-  
+
   # Install missing packages
   if (length(req) > 0 & install) {
     missing_packages <- req[!(req %in% installed.packages()[,"Package"])]
@@ -99,7 +91,7 @@ install.packages("shiny")
       )
     }
   }
-  
+
   # Additional stuff here
   # if (!webshot::is_phantomjs_installed()) {
   #   webshot::install_phantomjs()
@@ -111,14 +103,12 @@ install.packages("shiny")
   } else {
     lapply(req, library, character.only = T)
   }
-  
+
 
 })("req.txt", silent = F)
 ```
 
 This function takes advantage of the **req.txt** and automatically install missing CRAN packages and then loads all packages into the environment (i.e. *library* functions calls are not needed).
-
----
 
 ### 6. Loading R packages
 
@@ -140,8 +130,6 @@ req <- scan(file.path(dirname(getwd()), "req.txt"), character(), quiet = T)
 invisible(lapply(req, library, character.only = T))
 ```
 
----
-
 ### 7. Terminating app on window close
 
 To ensure that the Shiny app is automatically terminated when the browser window is closed by the user, the following should be added to the **server** function (make sure that *session* is added as an argument to the **server** function):
@@ -152,21 +140,17 @@ session$onSessionEnded(function() {
 })
 ```
 
----
-
 ### 8. Test run the app
 
 Double clicking **run.bat** should now run the Shiny app in either the default browser or packaged web browser.
 
 Closing the browser window should terminate the Shiny app and close the command prompt window.
 
----
-
 ### 9. (Optional) Packaging multiple Shiny apps
 
 Several Shiny apps may be bundled into a single deployment, each Shiny app should be contained within its own folder inside the file directory.
 
-Replace the contents of **run.bat** with the following:
+Replace the contents of **run.bat** with the following example:
 
 ``` bat
 @echo %off
@@ -202,16 +186,16 @@ if %opt%==1 (
 exit 0
 ```
 
-This allows the user to select the Shiny application to run via the command prompt window after clicking **run.bat**.
+This example assumes you have three Shiny apps called *Example_App_1*, *Example_App_2*, and *Example_App_3*, change this and the corresponding selection options (in *echo*) to whatever suits you.
 
----
+This allows the user to select the Shiny application to run via the command prompt window after clicking **run.bat**.
 
 ### 10. Create installer executable
 
-Installers allow for easy distribution and installation of a Shiny desktop app. Software for creating Windows installer executable is required - I recommend [Inno Setup](https://www.jrsoftware.org/isinfo.php). The details for using this software is not specified here, but it would be preferable to provide non-admin users easier access to the app.
+Installers allow for easy distribution and installation of a Shiny desktop app. 
 
----
+See setup.iss for an example compilation script using [Inno Setup](https://www.jrsoftware.org/isinfo.php). You will need to generate a new AppId and change the name, version, etc.
 
 ## Acknowledgements
 
-Inspired by Lee Pang: https://www.r-bloggers.com/deploying-desktop-apps-with-r/
+Inspired by Lee Pang (he also has a repo on this topic [here](https://github.com/wleepang/DesktopDeployR)): https://www.r-bloggers.com/deploying-desktop-apps-with-r/
