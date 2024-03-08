@@ -26,7 +26,7 @@ if (is.na(wd)) {
     if (length(missing_packages) > 0) {
       install.packages(
         missing_packages,
-        lib = file.path(rd, "R", "library"),
+        lib = lib_path,
         repos = "https://cloud.r-project.org",
         clean = T
       )

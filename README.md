@@ -2,7 +2,7 @@
 
 Use this repo as a template for deploying Shiny apps as standalone Windows desktop applications.
 
-- Copy in Shiny apps (each in a separate folder) - see the **app** folder as example.
+- Copy in Shiny apps (each in a separate folder) - see **app** and **app2** folders as example.
 - Optionally bundle in a portable R installation ([see below](#bundle-a-portable-r-installation)).
 - Optionally bundle in a web browser ([see below](#bundle-a-portable-web-browser)).
 - Optionally package as installer executable ([see below](#create-installer-executable)).
